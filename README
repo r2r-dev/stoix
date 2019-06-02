@@ -1,0 +1,16 @@
+# Statically compiled Nix in 5MB container
+Allows one to build nix derivations and nix-shells without a need for nix package manager on host system.
+
+# Installation
+nix-build
+# go for a lunch
+docker load < result/statix_image.tar
+
+# Build derivation from expression
+docker run -v /path/to/build/dir:/build/ -v /optional/cache/dir:/nix -it statix:latest nix-build /build/default.nix
+
+# Run shell from expression
+docker run -v /path/to/build/dir:/build/ -v /optional/cache/dir:/nix -it statix:latest nix-shell /build/default.nix
+
+# Run shell with selected tools
+docker run -it statix:latest nix-shell -p cowsay jq npm emacs
